@@ -1,0 +1,157 @@
+<h1>{{ title }}</h1>
+<div *ngIf="registered"><span class="green">Thank you for registering with us {{ registered.firstName }}. We just sent you a confirmation email at <a href="#">{{ registered.email }}</a>, and we will send all mail to {{ registered.address }}, {{ registered.city }}, {{ registered.state }}.</span>
+</div>
+<div>
+  <h2>Account Information</h2>
+  <form (submit)="onSubmit()" #formData="ngForm">
+    <table>
+      <tbody>
+        <tr>
+          <td><label>*First Name:</label></td>
+          <td><input type="text" name="firstName"
+              required
+              [(ngModel)]="user.firstName"
+              #firstName="ngModel"></td>
+          <td><span *ngIf="!firstName.valid">First name is required</span></td>
+        </tr>
+        <tr>
+          <td><label>*Last Name:</label></td>
+          <td><input type="text" name="lastName"
+              required
+              [(ngModel)]="user.lastName"
+              #lastName="ngModel"></td>
+          <td><span *ngIf="!lastName.valid">Last name is required</span></td>
+        </tr>
+        <tr>
+          <td><label>*Email:</label></td>
+          <td><input type="text" name="email"
+              required
+              pattern="^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$"
+              [(ngModel)]="user.email"
+              #email="ngModel"></td>
+          <td><span *ngIf="!email.valid">A valid email is required</span></td>
+        </tr>
+        <tr>
+          <td><label>*Password:</label></td>
+          <td><input type="password" name="password"
+              required
+              minlength="6"
+              maxlength="16" 
+              [(ngModel)]="user.password"
+              #password="ngModel"></td>
+          <td><span *ngIf="!password.valid">Password must be 6-16 characters</span></td>
+        </tr>
+        <tr>
+          <td><label>*Password Confirmation:</label></td>
+          <td><input type="password" name="pwConfirm"
+              required
+              minlength="6"
+              maxlength="16"
+              [(ngModel)]="user.pwConfirm"
+              #pwConfirm="ngModel"></td>
+          <td><span *ngIf="user.password !== user.pwConfirm">Password must match confirmation</span></td>
+        </tr>
+        <tr>
+          <td><label>*Street Address:</label></td>
+          <td><input type="text" name="address"
+              required
+              [(ngModel)]="user.address"
+              #address="ngModel"></td>
+          <td><span *ngIf="!address.valid">Street address is required</span></td>
+        </tr>
+        <tr>
+          <td><label>Unit/Apt #:</label></td>
+          <td><input type="text" name="unit"
+              [(ngModel)]="user.unit"
+              #unit="ngModel"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label>*City:</label></td>
+          <td><input type="text" name="city"
+              required
+              [(ngModel)]="user.city"
+              #city="ngModel"></td>
+          <td><span *ngIf="!city.valid">City is required</span></td>
+        </tr>
+        <tr>
+          <td><label>*State:</label></td>
+          <td><select name="state"
+              required
+              [(ngModel)]="user.state"
+              #state="ngModel">
+              <option value="Alabama">Alabama</option>
+              <option value="Alaska">Alaska</option>
+              <option value="Arizona">Arizona</option>
+              <option value="Arkansas">Arkansas</option>
+              <option value="California">California</option>
+              <option value="Colorado">Colorado</option>
+              <option value="Connecticut">Connecticut</option>
+              <option value="Delaware">Delaware</option>
+              <option value="Florida">Florida</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Hawaii">Hawaii</option>
+              <option value="Idaho">Idaho</option>
+              <option value="Illinois">Illinois</option>
+              <option value="Indiana">Indiana</option>
+              <option value="Iowa">Iowa</option>
+              <option value="Kansas">Kansas</option>
+              <option value="Kentucky">Kentucky</option>
+              <option value="Louisiana">Louisiana</option>
+              <option value="Maine">Maine</option>
+              <option value="Maryland">Maryland</option>
+              <option value="Massachusetts">Massachusetts</option>
+              <option value="Michigan">Michigan</option>
+              <option value="Minnesota">Minnesota</option>
+              <option value="Mississippi">Mississippi</option>
+              <option value="Missouri">Missouri</option>
+              <option value="Montana">Montana</option>
+              <option value="Nebraska">Nebraska</option>
+              <option value="Nevada">Nevada</option>
+              <option value="New Hampshire">New Hampshire</option>
+              <option value="New Jersey">New Jersey</option>
+              <option value="New Mexico">New Mexico</option>
+              <option value="New York">New York</option>
+              <option value="North Carolina">North Carolina</option>
+              <option value="North Dakota">North Dakota</option>
+              <option value="Ohio">Ohio</option>
+              <option value="Oklahoma">Oklahoma</option>
+              <option value="Oregon">Oregon</option>
+              <option value="Pennsylvania">Pennsylvania</option>
+              <option value="Rhode Island">Rhode Island</option>
+              <option value="South Carolina">South Carolina</option>
+              <option value="South Dakota">South Dakota</option>
+              <option value="Tennessee">Tennessee</option>
+              <option value="Texas">Texas</option>
+              <option value="Utah">Utah</option>
+              <option value="Vermont">Vermont</option>
+              <option value="Virginia">Virginia</option>
+              <option value="Washington">Washington</option>
+              <option value="West Virginia">West Virginia</option>
+              <option value="Wisconsin">Wisconsin</option>
+              <option value="Wyoming">Wyoming</option>
+            </select></td>
+          <td><span *ngIf="!state.valid">State is required</span></td>
+        </tr>
+        <tr>
+          <td><label>*I'm feeling lucky:</label></td>
+          <td><input type="radio" name="lucky"
+              required
+              [(ngModel)]="user.lucky"
+              #lucky="ngModel"
+              value=true>
+              <label>Yes</label>
+              <input type="radio" name="lucky"
+              required
+              [(ngModel)]="user.lucky"
+              #lucky="ngModel"
+              value=false>
+              <label>No</label>
+            </td>
+          <td><span *ngIf="!lucky.valid">Choosing how you feel is required</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <input type="submit" [disabled]="!formData.valid || (user.password !== user.pwConfirm)" value="Register">
+  </form>
+</div>
